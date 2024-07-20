@@ -11,7 +11,9 @@ import registerRoutes from "./routes/user.routes.js";
 import incomeRoutes from "./routes/income.routes.js";
 import expensesRoutes from "./routes/expenses.routes.js";
 import loanRoutes from "./routes/loan.routes.js";
-import subscriberRoutes from "./routes/subscriber.routes.js"
+import subscriberRoutes from "./routes/subscriber.routes.js";
+import currencyPopupRoutes from "./routes/currencyPopup.routes.js";
+import taskRoutes from "./routes/task.routes.js";
 
 const app = express(); // Create an Express application
 const PORT = process.env.PORT || 5000; // Set the port from environment variables or default to 5000
@@ -32,6 +34,8 @@ app.use("/api/income", incomeRoutes);
 app.use("/api/expenses", expensesRoutes);
 app.use("/api/loan", loanRoutes);
 app.use("/api/subscribe", subscriberRoutes);
+app.use("/api/currencyPopup", currencyPopupRoutes);
+app.use("/api/task", taskRoutes);
 
 // Start the server and listen on the specified port
 app.listen(PORT, () => {

@@ -264,6 +264,7 @@ const Expenses = () => {
             <p className="text-center text-gray-600">No expenses to show.</p>
           ) : (
             <table className="min-w-full divide-y divide-gray-200">
+              
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">

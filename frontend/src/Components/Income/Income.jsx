@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { FaPlus } from "react-icons/fa";
 import { FaCalendarAlt as SlCalender } from "react-icons/fa";
 import { Tooltip as ReactTooltip } from "react-tooltip"; // Named import
+import { useLoginContext } from "../../Context/useContext";
 
 const Income = () => {
   const [incomes, setIncomes] = useState([]);
@@ -16,6 +17,9 @@ const Income = () => {
   const [incomeDate, setIncomeDate] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [incomeBalance, setIncomeBalance] = useState(0);
+  const [isAmountVisible, setIsAmountVisible] = useState(true);
+  const { currency } = useLoginContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +71,13 @@ const Income = () => {
       const response = await axios.get(
         `/api/income/get?user=${localStorage.getItem("userId")}`
       );
-      setIncomes(response.data.data);
+      const fetchedIncomes = response.data.data;
+      setIncomes(fetchedIncomes);
+      const totalIncome = fetchedIncomes.reduce(
+        (acc, income) => acc + Number(income.amount),
+        0
+      );
+      setIncomeBalance(totalIncome);
     } catch (error) {
       console.error(error);
     }
@@ -124,6 +134,33 @@ const Income = () => {
           />
         </motion.section>
       </div>
+
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={sectionVariants}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="flex justify-between items-center mb-4"
+      >
+        <div className="p-4 flex items-center gap-3 rounded-lg shadow-md w-full md:w-auto">
+          <div className="text-2xl text-blue-500">
+            <i className="fa fa-credit-card" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p
+              className="text-left cursor-pointer"
+              onClick={() => setIsAmountVisible(!isAmountVisible)}
+            >
+              <span className="text-xl">{currency} </span>
+              <span className="text-xl">
+                {isAmountVisible ? incomeBalance.toFixed(2) : "XXX.XX"}
+              </span>
+            </p>
+            <h2 className="text-sm text-wrap text-left">Balance</h2>
+          </div>
+        </div>
+      </motion.div>
+
       <motion.section
         className="text-center flex-col mb-4 md:flex-row items-center"
         initial="hidden"
@@ -162,38 +199,41 @@ const Income = () => {
         variants={sectionVariants}
         transition={{ duration: 0.5, delay: 0.9 }}
       >
-        <div className="bg-white p-4 rounded shadow-md w-full overflow-x-auto">
-          <h2 className="text-2xl font-bold mb-4 text-left">Income List</h2>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr>
-                <th className="px-3 md:px-6 py-3  text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider text-left">
-                  Source
-                </th>
-                <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
-                  Amount
-                </th>
-                <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
-                  Date
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {incomes.map((income) => (
-                <tr key={income._id}>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm font-medium text-gray-900">
-                    {income.source}
-                  </td>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm text-gray-500">
-                    {income.amount}
-                  </td>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm text-gray-500">
-                    {new Date(income.date).toLocaleDateString()}
-                  </td>
+        <div className="shadow-md w-full overflow-x-auto">
+          {incomes.length === 0 ? (
+            <p className="text-center text-gray-600">No income to show.</p>
+          ) : (
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr>
+                  <th className="px-3 md:px-6 py-3  text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider text-left">
+                    Source
+                  </th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
+                    Amount
+                  </th>
+                  <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {incomes.map((income) => (
+                  <tr key={income._id}>
+                    <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm font-medium text-gray-900">
+                      {income.source}
+                    </td>
+                    <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm text-gray-500">
+                      {income.amount}
+                    </td>
+                    <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm text-gray-500">
+                      {new Date(income.date).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </motion.section>
 
@@ -247,24 +287,26 @@ const Income = () => {
                   id="incomeDate"
                   selected={incomeDate}
                   onChange={(date) => setIncomeDate(date)}
-                  className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  calendarClassName="custom-datepicker" // Apply custom class to calendar
-                  name="date"
+                  dateFormat="yyyy-MM-dd"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex items-center justify-between">
+                <button
+                  type="submit"
+                  className={`bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={loading}
+                >
+                  {loading ? "Saving..." : "Save"}
+                </button>
                 <button
                   type="button"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
+                  className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500 focus:outline-none focus:shadow-outline"
                   onClick={handleCancel}
                 >
                   Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  {loading ? "Adding..." : "Add Income"}
                 </button>
               </div>
             </form>
@@ -279,13 +321,14 @@ const FilterButton = ({ filter, activeFilter, onClick }) => {
   const isActive = filter === activeFilter;
   return (
     <button
-      onClick={() => onClick(filter)}
       className={`py-2 px-4 rounded ${
-        isActive ? "bg-blue-600 text-white" : "bg-gray-200 text-black"
-      } focus:outline-none focus:shadow-outline mb-2 md:mb-0`}
+        isActive ? "bg-blue-800 text-white" : "bg-gray-200 text-black"
+      }`}
+      onClick={() => onClick(filter)}
     >
       {filter}
     </button>
   );
 };
+
 export default Income;

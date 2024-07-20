@@ -56,7 +56,6 @@ function App() {
               <Route path="income" element={<Income />} />
               <Route path="loan" element={<Loan />} />
               <Route path="investment" element={<Investment />} />
-
               <Route path="budget" element={<Budget />} />
               <Route path="report" element={<Report />} />
               <Route path="setting" element={<Setting />} />

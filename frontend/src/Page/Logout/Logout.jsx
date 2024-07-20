@@ -7,6 +7,8 @@ function Logout() {
 
   const confirmLogout = () => {
     localStorage.removeItem("user-token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("fullName");
     window.location.href = "/";
   };
 
@@ -23,10 +25,16 @@ function Logout() {
               Are you sure you want to logout?
             </p>
             <div className="flex flex-col md:flex-row justify-center  gap-5 font-semibold">
-              <button className="btn w-full px-32 md:w-20" onClick={confirmLogout}>
+              <button
+                className="btn w-full px-32 md:w-20"
+                onClick={confirmLogout}
+              >
                 Yes
               </button>
-              <button className="btn w-full px-32 md:w-20" onClick={cancelLogout}>
+              <button
+                className="btn w-full px-32 md:w-20"
+                onClick={cancelLogout}
+              >
                 No
               </button>
             </div>

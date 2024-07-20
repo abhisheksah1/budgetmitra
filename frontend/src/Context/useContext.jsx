@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export const LoginContext = createContext();
 
@@ -13,7 +14,21 @@ const LoginContextProvider = ({ children }) => {
   const [showLogout, setShowLogout] = useState(false);
   const [showReset, setShowReset] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [showTasks, setShowTasks] = useState(false);
+  const [currency, setCurrency] = useState("");
+
+  const handleCurrencyChange = async () => {
+    await axios
+      .get(`/api/task/get?user=${localStorage.getItem("userId")}`)
+      .then((response) => {
+        setCurrency(response.data.data.country);
+      })
+      .catch((error) => {
+        console.error("Error fetching currency:", error);
+      });
+  };
+  useEffect(() => {
+    handleCurrencyChange();
+  }, []);
 
   return (
     <LoginContext.Provider
@@ -30,11 +45,9 @@ const LoginContextProvider = ({ children }) => {
         setShowReset,
         showFeedback,
         setShowFeedback,
-        showTasks,
-        setShowTasks,
+        currency,
       }}
     >
-      
       {children}
     </LoginContext.Provider>
   );

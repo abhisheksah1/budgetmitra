@@ -10,13 +10,13 @@ import FAQs from "../LandingPage/FAQs";
 import BlogSection from "../LandingPage/BlogSection";
 import ContactUs from "../LandingPage/ContactUs";
 
-
 import { useLoginContext } from "../../Context/useContext";
 
 import { Facebook, Linkedin, Github, Mail } from "lucide-react";
-import HomeSVG from "../../Assests/Home.svg";
+import HomeSVG from "../../Assests/Home.png";
 
 import AnimatedSection from "../AbimatedSection/AnimatedSection";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 const Home = () => {
   const buttonRef = React.useRef(null);
@@ -33,68 +33,58 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <main className="container mx-auto p-8">
-        <section className="text-center my-12 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 px-4">
-            <motion.h1
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl font-bold mb-4"
-            >
-              Manage Your Finances Effortlessly
-            </motion.h1>
-            <motion.p
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-xl text-gray-700 mb-6"
-            >
-              Track your income, expenses, and budget all in one place.
-            </motion.p>
-            <motion.div
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
+      <main className="  ">
+        <section className="text-center bg-gray-50 min-h-screen flex flex-col md:flex-row items-center justify-center p-4">
+          <div className="    ">
+            <div className="flex justify-center items-center mb-4">
+              <FaRegMoneyBillAlt className="text-green-500 text-6xl" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              Take Charge of Your Personal Finances
+            </h1>
+            <p className="text-lg md:text-xl text-gray-700 mb-6">
+              Budget better, save more, and achieve your financial goals with
+              ease.
+            </p>
+            <div className="flex flex-col md:flex-row justify-center items-center">
               {token ? (
                 <Link
-                  to="/getStarted/dashboard"
-                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+                  to="/getStarted"
+                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 mb-4 md:mb-0 md:mr-4"
                 >
                   Get Started
                 </Link>
               ) : (
                 <button
                   onClick={setShowLogin}
-                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 mb-4 md:mb-0 md:mr-4"
                 >
-                  Sign Up
+                  Get Started
                 </button>
               )}
-            </motion.div>
+              <Link
+                to="/learnMore"
+                className="bg-transparent text-blue-500 border border-blue-500 py-2 px-4 rounded hover:bg-blue-50"
+              >
+                Learn More
+              </Link>
+            </div>
           </div>
-          
+
           <motion.div
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="md:w-1/2 px-4 mt-6 md:mt-0"
+            className="md:w-1/2 "
           >
-            <img
-              src={HomeSVG}
-              alt="Finance Illustration"
-              className="w-full h-auto"
-            />
+            <img src={HomeSVG} alt="Finance Illustration" className="w-74" />
           </motion.div>
         </section>
 
         {/* 
         //Feature section */}
 
-        <AnimatedSection>
-          <Features />
-        </AnimatedSection>
+        <Features />
 
         {/* working Section */}
 

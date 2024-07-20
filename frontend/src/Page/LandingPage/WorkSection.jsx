@@ -1,43 +1,31 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { SiSimplelogin } from "react-icons/si";
+
+
 function WorkSection() {
   return (
     <div>
-      <section className="bg-gray-50 py-12">
+      <section className="bg-gray-100 px-16 py-12">
         <div className="container mx-auto px-6">
-          <motion.h2
-            initial={{ y: -100, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
+          <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1 }}
             className="text-3xl md:text-4xl font-bold text-center mb-8"
           >
             How It Works
-          </motion.h2>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Step 1: Create an Account */}
             <motion.div
-              initial={{ y: -100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="flex items-center"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="flex items-center border shadow-sm rounded-lg px-10 py-5"
             >
-              <div className="flex-shrink-0 bg-blue-500 rounded-full p-4">
-                <svg
-                  className="text-white w-8 h-8"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 0a2 2 0 00-2 2v6a2 2 0 104 0V2a2 2 0 00-2-2zm1 13a1 1 0 01-2 0v-3a1 1 0 012 0v3z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M2.464 5.636a8 8 0 1011.314 11.314l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657a6 6 0 11-8.485-8.485l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <div className="flex-shrink-0 text-6xl text-blue-500">
+                <SiSimplelogin />
               </div>
               <div className="ml-4">
                 <h3 className="text-xl font-bold mb-2">Create an Account</h3>
@@ -50,28 +38,13 @@ function WorkSection() {
 
             {/* Step 2: Set Your Budget */}
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="flex items-center"
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.7 }}
+              className="flex items-center border shadow-sm rounded-lg px-10 py-5"
             >
-              <div className="flex-shrink-0 bg-blue-500 rounded-full p-4">
-                <svg
-                  className="text-white w-8 h-8"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 0a2 2 0 00-2 2v6a2 2 0 104 0V2a2 2 0 00-2-2zm1 13a1 1 0 01-2 0v-3a1 1 0 012 0v3z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M2.464 5.636a8 8 0 1011.314 11.314l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657a6 6 0 11-8.485-8.485l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <div className="flex-shrink-0 text-5xl text-blue-500 rounded-full p-4">
+              <i className="fa fa-money" aria-hidden="true"></i>
               </div>
               <div className="ml-4">
                 <h3 className="text-xl font-bold mb-2">Set Your Budget</h3>
@@ -84,28 +57,13 @@ function WorkSection() {
 
             {/* Step 3: Track Expenses */}
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-              className="flex items-center"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="flex items-center border shadow-sm rounded-lg px-10 py-5"
             >
-              <div className="flex-shrink-0 bg-blue-500 rounded-full p-4">
-                <svg
-                  className="text-white w-8 h-8"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 0a2 2 0 00-2 2v6a2 2 0 104 0V2a2 2 0 00-2-2zm1 13a1 1 0 01-2 0v-3a1 1 0 012 0v3z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M2.464 5.636a8 8 0 1011.314 11.314l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657a6 6 0 11-8.485-8.485l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <div className="flex-shrink-0 text-5xl text-blue-500 rounded-full p-4">
+              <i className="fa fa-search" aria-hidden="true"></i>
               </div>
               <div className="ml-4">
                 <h3 className="text-xl font-bold mb-2">Track Expenses</h3>
@@ -118,28 +76,13 @@ function WorkSection() {
 
             {/* Step 4: Plan for Future */}
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-              className="flex items-center"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="flex items-center border shadow-sm rounded-lg px-10 py-5"
             >
-              <div className="flex-shrink-0 bg-blue-500 rounded-full p-4">
-                <svg
-                  className="text-white w-8 h-8"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 0a2 2 0 00-2 2v6a2 2 0 104 0V2a2 2 0 00-2-2zm1 13a1 1 0 01-2 0v-3a1 1 0 012 0v3z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M2.464 5.636a8 8 0 1011.314 11.314l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657a6 6 0 11-8.485-8.485l5.657-5.657a1 1 0 10-1.414-1.414l-5.657 5.657z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <div className="flex-shrink-0 text-6xl text-blue-500 rounded-full p-4">
+              <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
               </div>
               <div className="ml-4">
                 <h3 className="text-xl font-bold mb-2">Plan for Future</h3>

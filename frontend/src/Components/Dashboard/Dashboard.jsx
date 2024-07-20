@@ -6,12 +6,14 @@ import { GiExpense } from "react-icons/gi";
 import { MdSource } from "react-icons/md";
 import { motion } from "framer-motion";
 import AnimatedSection from "../../Page/AbimatedSection/AnimatedSection";
+import { useLoginContext } from "../../Context/useContext";
 
 const Dashboard = () => {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
   const [alertMessage, setAlertMessage] = useState("");
+  const { currency } = useLoginContext();
 
   const handleTotalIncome = async () => {
     try {
@@ -61,7 +63,7 @@ const Dashboard = () => {
     } else {
       setAlertMessage("");
     }
-  }, [totalBalance]);
+  }, [totalBalance, totalExpenses]);
 
   return (
     <main className="p-4 bg-gray-100 min-h-screen">
@@ -78,7 +80,9 @@ const Dashboard = () => {
                 {" "}
                 <FaWallet /> Main Balance
               </h2>
-              <p className="text-2xl">${totalBalance}</p>
+              <p className="text-2xl">
+                {currency} {totalBalance}
+              </p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 100 }}
@@ -91,7 +95,9 @@ const Dashboard = () => {
                 <MdSource />
                 Income
               </h2>
-              <p className="text-2xl">${totalIncome}</p>
+              <p className="text-2xl">
+                {currency} {totalIncome}
+              </p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 100 }}
@@ -102,7 +108,9 @@ const Dashboard = () => {
               <h2 className="text-lg font-semibold flex items-center  gap-2 mb-2">
                 <GiExpense className="text-red-600" /> Expenses
               </h2>
-              <p className="text-2xl">${totalExpenses}</p>
+              <p className="text-2xl">
+                {currency} {totalExpenses}
+              </p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 100 }}
@@ -114,7 +122,9 @@ const Dashboard = () => {
                 {" "}
                 <MdSavings /> Savings
               </h2>
-              <p className="text-2xl">${totalIncome - totalExpenses}</p>
+              <p className="text-2xl">
+                {currency} {totalIncome - totalExpenses}
+              </p>
             </motion.div>
           </div>
           {alertMessage && (
@@ -124,10 +134,6 @@ const Dashboard = () => {
           )}
         </div>
       </AnimatedSection>
-
-      
-
-      
     </main>
   );
 };

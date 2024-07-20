@@ -9,13 +9,6 @@ const tasksSchema = new mongoose.Schema(
     whereDidYouFindUs: {
       type: String,
       required: true,
-      enum: [
-        "Social Media",
-        "Search Engine",
-        "Referral",
-        "Advertisement",
-        "Other",
-      ],
     },
     usedOtherPersonalFinanceManager: {
       type: Boolean,
