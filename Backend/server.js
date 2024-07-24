@@ -37,7 +37,7 @@ const __dirnames = path.resolve();
 // Middleware to enable CORS
 app.use(
   cors({
-    origin: "http://localhost:5000",
+    origin: "https://budgetmitra.vercel.app/",
     credentials: true,
   })
 );
