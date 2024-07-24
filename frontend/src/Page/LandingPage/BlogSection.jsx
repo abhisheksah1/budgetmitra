@@ -10,10 +10,10 @@ function BlogSection() {
       <section className="bg-gray-50 py-12">
         <div className="container mx-auto px-6">
           <motion.h2
-            initial={{ y: -100, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="text-3xl md:text-4xl font-bold text-center mb-8"
+            initial={{ scale: 0.5, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl md:text-4xl text-[#333] font-bold text-center mb-8"
           >
             Latest Blogs & News
           </motion.h2>
@@ -21,9 +21,9 @@ function BlogSection() {
             {/* Blog/News Card 1 */}
 
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
+              initial={{ scale: 0.5, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
               <a
                 href="#"
@@ -33,11 +33,11 @@ function BlogSection() {
                   <img
                     src={PersonalFinance}
                     alt="Blog Cover"
-                    className="w-96 h-80 object-cover"
+                    className="lg:w-96  h-80 object-cover"
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">
+                  <h3 className="text-xl text-[#333] font-semibold mb-2">
                     Understanding Personal Budgeting
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
@@ -54,9 +54,9 @@ function BlogSection() {
             {/* Blog/News Card 2 */}
 
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.7 }}
+              initial={{ scale: 0.5, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
               <a
                 href="#"
@@ -70,7 +70,7 @@ function BlogSection() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">
+                  <h3 className="text-xl text-[#333] font-semibold mb-2">
                     Top 5 Finance Apps You Should Try
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
@@ -85,9 +85,10 @@ function BlogSection() {
 
             {/* Blog/News Card 3 */}
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
+              initial={{ scale: 0.5, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              
             >
               <Link
                 to="/investmentBeginner"
@@ -97,11 +98,11 @@ function BlogSection() {
                   <img
                     src={Strategic}
                     alt="Blog Cover"
-                    className="w-96 h-80  object-cover"
+                    className="lg:w-96  h-80  object-cover "
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">
+                  <h3 className="text-xl text-[#333] font-semibold mb-2">
                     Investment Strategies for Beginners
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">

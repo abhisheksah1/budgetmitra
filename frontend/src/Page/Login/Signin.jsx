@@ -5,18 +5,14 @@ import "./login.style.css";
 import { Eye, EyeOff } from "lucide-react";
 
 import Toast from "react-hot-toast";
+
 function Signin() {
   const [email, setEmail] = useState(""); // State for storing email input
   const [password, setPassword] = useState(""); // State for storing password input
   const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
   const [rememberMe, setRememberMe] = useState(false); // State for remembering user login
-  const {
-    showLogin,
-    setShowLogin,
-    setShowRegister,
-    setShowReset,
-    setShowTasks,
-  } = useLoginContext(); // Destructuring values from login context
+  const { showLogin, setShowLogin, setShowRegister, setShowReset } =
+    useLoginContext(); // Destructuring values from login context
   const { loading, signin } = useSignin(); // Destructuring values from signin context
 
   const toggleShowPassword = () => {
@@ -64,15 +60,15 @@ function Signin() {
   return (
     <div className="relative z-50">
       {showLogin && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-400 bg-opacity-75 ">
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-400 bg-opacity-75 p-4 sm:p-8">
           <form
-            className={`bg-white p-8 rounded-lg shadow-lg w-full max-w-xl animate-slideDown`}
+            className="bg-white p-4 sm:p-8 rounded-lg shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl animate-slideDown"
             onSubmit={handleSubmit}
           >
             <div className="flex justify-end gap-5 font-semibold">
               <button
                 type="button"
-                className=" float-right "
+                className=" float-right text-red-500   "
                 onClick={() => {
                   setShowLogin(false);
                 }}
@@ -81,15 +77,18 @@ function Signin() {
               </button>
             </div>
             <div className="flex flex-col gap-4">
-              <label className="flex justify-center pb-10 font-bold text-2xl">
-                <span>Sign In Your Account</span>
+              <label className="flex justify-center  mb-5 font-semibold text-xl lg:text-2xl">
+                <span>
+                  Sign In Your{" "}
+                  <span className="text-blue-500 font-bold">Account</span>
+                </span>
               </label>
               <label className="input input-bordered flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
                   fill="currentColor"
-                  className="w-4 h-4 opacity-70"
+                  className="w-4 h-4 text-blue-500 "
                 >
                   <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
                   <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
@@ -109,7 +108,7 @@ function Signin() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
                   fill="currentColor"
-                  className="w-4 h-4 opacity-70"
+                  className="w-4 h-4 text-blue-500"
                 >
                   <path
                     fillRule="evenodd"
@@ -133,30 +132,36 @@ function Signin() {
                   {showPassword ? <Eye /> : <EyeOff />}
                 </button>
               </label>
-              <label className="flex justify-between items-center pb-5">
-                <div className="flex items-center">
-                  <input type="checkbox" className="checkbox h-5 w-5" />
-                  <span
-                    className="form-checkbox-label ml-2"
-                    checked={rememberMe}
-                    onChange={handleRememberMeChange}
-                  >
-                    Remember me
-                  </span>
-                </div>
+              <div className="flex justify-between items-center pb-2 sm:pb-5">
+                <label htmlFor="AA">
+                  <div className="flex items-center">
+                    <input
+                      id="AA"
+                      type="checkbox"
+                      className=" rounded-lg h-5  w-5"
+                    />
+                    <span
+                      className="form-checkbox-label ml-2"
+                      checked={rememberMe}
+                      onChange={handleRememberMeChange}
+                    >
+                      Remember me
+                    </span>
+                  </div>
+                </label>
                 <div>
                   <span>
                     {" "}
                     <button
                       onClick={resetHandler}
-                      className="text-red-500 font-semibold  hover:text-red-900"
+                      className="text-blue-500 font-semibold hover:text-blue-600"
                     >
                       Forgot Password?
                     </button>
                   </span>
                 </div>
-              </label>
-              <button className="btn" disabled={loading}>
+              </div>
+              <button className="bg-blue-500 py-3 rounded-md hover:bg-blue-600" disabled={loading}>
                 {loading ? (
                   <span className="loading loading-spinner loading-md"></span>
                 ) : (
@@ -164,21 +169,21 @@ function Signin() {
                 )}
               </button>
             </div>
-            <label className="flex justify-between pt-10">
+            <div className="flex justify-between pt-5 sm:pt-10">
               <div>
-                <span className="text-blue-500">Don't have a Account?</span>
+                <span className="text-blue-500">Don't have an Account?</span>
               </div>
               <div>
                 <span>
                   <button
                     onClick={handleShow}
-                    className="font-semibold hover:text-red-500"
+                    className="font-semibold hover:text-blue-500"
                   >
                     Register Here
                   </button>
                 </span>
               </div>
-            </label>
+            </div>
           </form>
         </div>
       )}

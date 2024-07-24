@@ -61,3 +61,146 @@ export async function getAllIncomesByUserId(req, res) {
     });
   }
 }
+
+export async function getIncomeForLastSevenDays(req, res) {
+  try {
+    const user = String(req.query.user); // Convert to string explicitly
+
+    if (!user || user.trim() === "" || !mongoose.Types.ObjectId.isValid(user)) {
+      return res.status(404).json({ message: "userId is Invalid" });
+    }
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const incomeData = await incomeModel
+      .find({
+        user,
+        date: { $gte: sevenDaysAgo },
+      })
+      .sort({ _id: -1 });
+    if (!incomeData || incomeData.length === 0) {
+      return res.status(404).json({ message: "No incomes found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: incomeData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+}
+
+export async function getIncomeForLastFifteenDays(req, res) {
+  try {
+    const user = String(req.query.user); // Convert to string explicitly
+
+    if (!user || user.trim() === "" || !mongoose.Types.ObjectId.isValid(user)) {
+      return res.status(404).json({ message: "userId is Invalid" });
+    }
+
+    const fifteenDaysAgo = new Date();
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
+
+    const incomeData = await incomeModel
+      .find({
+        user,
+        date: { $gte: fifteenDaysAgo },
+      })
+      .sort({ _id: -1 });
+    if (!incomeData || incomeData.length === 0) {
+      return res.status(404).json({ message: "No incomes found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: incomeData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+}
+
+export async function getIncomeForLastMonth(req, res) {
+  try {
+    const user = String(req.query.user); // Convert to string explicitly
+
+    if (!user || user.trim() === "" || !mongoose.Types.ObjectId.isValid(user)) {
+      return res.status(404).json({ message: "userId is Invalid" });
+    }
+
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+
+    const incomeData = await incomeModel
+      .find({
+        user,
+        date: { $gte: oneMonthAgo },
+      })
+      .sort({ _id: -1 });
+    if (!incomeData || incomeData.length === 0) {
+      return res.status(404).json({ message: "No incomes found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: incomeData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+}
+
+export async function getIncomeByDateRange(req, res) {
+  try {
+    const { startDate, endDate } = req.query;
+
+    // Validate the dates
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        success: false,
+        message: "Start date and end date are required",
+      });
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Ensure dates are valid
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid date format",
+      });
+    }
+
+    // Fetch data within the date range
+    const incomeData = await incomeModel.find({
+      date: { $gte: start, $lte: end },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: incomeData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+}

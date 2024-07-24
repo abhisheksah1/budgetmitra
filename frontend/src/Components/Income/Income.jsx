@@ -45,6 +45,7 @@ const Income = () => {
       setLoading(false);
       setIsModalOpen(false); // Close the modal on successful submission
       fetchIncomes(); // Fetch incomes after adding new income
+      fetch7DaysIncome();
     } catch (error) {
       console.error(error);
       toast.error("Failed to add income", {
@@ -72,7 +73,6 @@ const Income = () => {
         `/api/income/get?user=${localStorage.getItem("userId")}`
       );
       const fetchedIncomes = response.data.data;
-      setIncomes(fetchedIncomes);
       const totalIncome = fetchedIncomes.reduce(
         (acc, income) => acc + Number(income.amount),
         0
@@ -83,8 +83,43 @@ const Income = () => {
     }
   };
 
+  const fetch7DaysIncome = async () => {
+    try {
+      const response = await axios.get(
+        `/api/income/getSevenDays?user=${localStorage.getItem("userId")}`
+      );
+      const fetchedIncomes = response.data.data;
+      setIncomes(fetchedIncomes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const fetch15DaysIncome = async () => {
+    try {
+      const response = await axios.get(
+        `/api/income/getFifteenDays?user=${localStorage.getItem("userId")}`
+      );
+      const fetchedIncomes = response.data.data;
+      setIncomes(fetchedIncomes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const fetch1MonthIncome = async () => {
+    try {
+      const response = await axios.get(
+        `/api/income/getOneMonth?user=${localStorage.getItem("userId")}`
+      );
+      const fetchedIncomes = response.data.data;
+      setIncomes(fetchedIncomes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchIncomes();
+    fetch7DaysIncome();
   }, []);
 
   //for motion framer
@@ -97,10 +132,17 @@ const Income = () => {
 
   const handleFilterChange = (filter) => {
     setActiveFilter(filter);
+    if (filter === "15 Days") {
+      fetch15DaysIncome();
+    } else if (filter === "30 Days") {
+      fetch1MonthIncome();
+    } else if (filter === "7 Days") {
+      fetch7DaysIncome();
+    }
   };
 
   return (
-    <main className="p-4 bg-gray-100 min-h-screen">
+    <main className="p-4 bg-gray-100 min-h-screen mt-12">
       <div className="flex justify-between mb-4">
         <motion.section
           className="text-center  flex flex-col md:flex-row items-center"
@@ -218,16 +260,16 @@ const Income = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {incomes.map((income) => (
-                  <tr key={income._id}>
+                {incomes.map((incomess) => (
+                  <tr key={incomess._id}>
                     <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm font-medium text-gray-900">
-                      {income.source}
+                      {incomess.source}
                     </td>
                     <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm text-gray-500">
-                      {income.amount}
+                      {incomess.amount}
                     </td>
                     <td className="px-3 md:px-6 py-4 whitespace-nowrap text-left text-xs md:text-sm text-gray-500">
-                      {new Date(income.date).toLocaleDateString()}
+                      {new Date(incomess.date).toLocaleDateString()}
                     </td>
                   </tr>
                 ))}
@@ -240,73 +282,78 @@ const Income = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded shadow-md w-full max-w-md mx-4">
-            <h2 className="text-2xl font-bold mb-4">Add New Income</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              Add New <span className="text-blue-500 font-sans">Income</span>{" "}
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="incomeSource"
-                >
-                  Income Source
+                <label className="flex text-md  items-center gap-2 border border-gray-300 hover:border-blue-500  rounded-md p-2">
+                  <i
+                    className="fa text-blue-500 fa-file-text"
+                    aria-hidden="true"
+                  ></i>
+                  <input
+                    id="incomeSource"
+                    type="text"
+                    value={incomeSource}
+                    onChange={(e) => setIncomeSource(e.target.value)}
+                    className="flex-grow p-2 border border-transparent bg-transparent rounded-md focus:outline-none"
+                    placeholder="Enter income source"
+                  />
                 </label>
-                <input
-                  id="incomeSource"
-                  type="text"
-                  value={incomeSource}
-                  onChange={(e) => setIncomeSource(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Enter income source"
-                  name="source"
-                />
+              </div>
+              <div className="mb-4">
+                <label className="flex text-md  items-center gap-2 border border-gray-300 hover:border-blue-500  rounded-md p-2">
+                  <i
+                    className="fa text-blue-500 fa-money"
+                    aria-hidden="true"
+                  ></i>
+                  <input
+                    id="incomeAmount"
+                    type="number"
+                    value={incomeAmount}
+                    onChange={(e) => setIncomeAmount(e.target.value)}
+                    className="flex-grow p-2 border border-transparent bg-transparent rounded-md focus:outline-none"
+                    placeholder="Enter income amount"
+                    name="amount"
+                  />
+                </label>
               </div>
               <div className="mb-4">
                 <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="incomeAmount"
-                >
-                  Income Amount
-                </label>
-                <input
-                  id="incomeAmount"
-                  type="number"
-                  value={incomeAmount}
-                  onChange={(e) => setIncomeAmount(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Enter income amount"
-                  name="amount"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
                   htmlFor="incomeDate"
+                  className="flex text-md  items-center gap-2 border border-gray-300 hover:border-blue-500  rounded-md p-2"
                 >
-                  Income Date
+                  <i
+                    className="fa text-blue-500 fa-calendar"
+                    aria-hidden="true"
+                  ></i>
+                  <DatePicker
+                    id="incomeDate"
+                    selected={incomeDate}
+                    onChange={(date) => setIncomeDate(date)}
+                    dateFormat="yyyy-MM-dd"
+                    className="flex-grow p-2 border border-transparent bg-transparent rounded-md focus:outline-none"
+                    readOnly
+                  />
                 </label>
-                <DatePicker
-                  id="incomeDate"
-                  selected={incomeDate}
-                  onChange={(date) => setIncomeDate(date)}
-                  dateFormat="yyyy-MM-dd"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
               </div>
               <div className="flex items-center justify-between">
-                <button
-                  type="submit"
-                  className={`bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline ${
-                    loading ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                  disabled={loading}
-                >
-                  {loading ? "Saving..." : "Save"}
-                </button>
                 <button
                   type="button"
                   className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500 focus:outline-none focus:shadow-outline"
                   onClick={handleCancel}
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className={`bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={loading}
+                >
+                  {loading ? "Saving..." : "Save"}
                 </button>
               </div>
             </form>

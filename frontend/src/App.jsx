@@ -19,6 +19,7 @@ import InvestmentBeginner from "./Page/Blog/InvestmentBeginner";
 import Tasks from "./Components/Tasks/Tasks";
 import Loan from "./Components/Loan/Loan";
 import Investment from "./Components/Investment/Investment";
+import FeedbackForm from "./Page/LandingPage/feedBackForm/FeedbackFrom";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +67,7 @@ function App() {
           <Signup />
           <Logout />
           <Tasks />
+          <FeedbackForm />
         </>
       )}
     </>

@@ -23,7 +23,7 @@ const Budget = () => {
 
   return (
     <div>
-      <main className="p-4 bg-gray-100 min-h-screen">
+      <main className="p-4 bg-gray-100 min-h-screen mt-12">
         <h1 className="text-3xl font-bold mb-4">Budget</h1>
         <div className="bg-white p-4 rounded shadow-md mb-6">
           <h2 className="text-2xl font-bold mb-4">Set Budget Goals</h2>

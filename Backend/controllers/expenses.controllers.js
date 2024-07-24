@@ -61,3 +61,99 @@ export async function getAllExpensesByUserId(req, res) {
     });
   }
 }
+
+export async function getExpencesForLastSevenDays(req, res) {
+  try {
+    const user = String(req.query.user); // Convert to string explicitly
+
+    if (!user || user.trim() === "" || !mongoose.Types.ObjectId.isValid(user)) {
+      return res.status(404).json({ message: "userId is Invalid" });
+    }
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const expencesData = await Expenses.find({
+      user,
+      date: { $gte: sevenDaysAgo },
+    }).sort({ _id: -1 });
+    if (!expencesData || expencesData.length === 0) {
+      return res.status(404).json({ message: "No expences found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: expencesData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+}
+
+export async function getExpencesForLastFifteenDays(req, res) {
+  try {
+    const user = String(req.query.user); // Convert to string explicitly
+
+    if (!user || user.trim() === "" || !mongoose.Types.ObjectId.isValid(user)) {
+      return res.status(404).json({ message: "userId is Invalid" });
+    }
+
+    const fifteenDaysAgo = new Date();
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
+
+    const expencesData = await Expenses.find({
+      user,
+      date: { $gte: fifteenDaysAgo },
+    }).sort({ _id: -1 });
+    if (!expencesData || expencesData.length === 0) {
+      return res.status(404).json({ message: "No expences found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: expencesData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+}
+
+export async function getExpencesForLastMonth(req, res) {
+  try {
+    const user = String(req.query.user); // Convert to string explicitly
+
+    if (!user || user.trim() === "" || !mongoose.Types.ObjectId.isValid(user)) {
+      return res.status(404).json({ message: "userId is Invalid" });
+    }
+
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+
+    const expencesData = await Expenses.find({
+      user,
+      date: { $gte: oneMonthAgo },
+    }).sort({ _id: -1 });
+    if (!expencesData || expencesData.length === 0) {
+      return res.status(404).json({ message: "No expences found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: expencesData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+}

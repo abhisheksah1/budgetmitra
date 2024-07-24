@@ -6,10 +6,10 @@ const LearningResources = () => {
   return (
     <Section title="Resources for Learning More about Investing">
       <motion.div 
-        initial={{ opacity: 0 }} 
-        whileInView={{ opacity: 1 }} 
-        transition={{ duration: 0.5 }} 
-        viewport={{ once: true }}
+       initial={{ scale:0.8, opacity:0 }}
+       whileInView={{scale:1, opacity:1 }}
+       transition={{ duration: 0.5 }}
+       
         className="space-y-4"
       >
         <h3 className="text-xl font-semibold mb-2">1. Books</h3>

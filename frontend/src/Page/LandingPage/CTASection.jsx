@@ -50,7 +50,7 @@ function CTASection() {
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.5 }}
               className="lg:w-1/2"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -105,7 +105,7 @@ function CTASection() {
             <motion.div
               initial={{ x: 100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.5 }}
               className="lg:w-1/2 mt-8 lg:mt-0"
             >
               <img

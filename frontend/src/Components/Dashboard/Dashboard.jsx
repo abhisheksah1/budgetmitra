@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaWallet } from "react-icons/fa";
-import { MdSavings } from "react-icons/md";
+import { FaWallet, FaMoneyBillAlt } from "react-icons/fa";
+import { MdSavings, MdSource } from "react-icons/md";
 import { GiExpense } from "react-icons/gi";
-import { MdSource } from "react-icons/md";
 import { motion } from "framer-motion";
 import AnimatedSection from "../../Page/AbimatedSection/AnimatedSection";
 import { useLoginContext } from "../../Context/useContext";
@@ -12,6 +11,7 @@ const Dashboard = () => {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
+
   const [alertMessage, setAlertMessage] = useState("");
   const { currency } = useLoginContext();
 
@@ -66,10 +66,10 @@ const Dashboard = () => {
   }, [totalBalance, totalExpenses]);
 
   return (
-    <main className="p-4 bg-gray-100 min-h-screen">
+    <main className="p-4 mt-12 bg-gray-100 min-h-screen">
       <AnimatedSection>
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <motion.div
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +105,7 @@ const Dashboard = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="bg-white p-4 rounded-lg shadow transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
             >
-              <h2 className="text-lg font-semibold flex items-center  gap-2 mb-2">
+              <h2 className="text-lg font-semibold flex items-center gap-2 mb-2">
                 <GiExpense className="text-red-600" /> Expenses
               </h2>
               <p className="text-2xl">
@@ -124,6 +124,20 @@ const Dashboard = () => {
               </h2>
               <p className="text-2xl">
                 {currency} {totalIncome - totalExpenses}
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+              className="bg-white p-4 rounded-lg shadow transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+            >
+              <h2 className="text-lg font-semibold flex gap-2 items-center mb-2">
+                {" "}
+                <FaMoneyBillAlt /> Loan
+              </h2>
+              <p className="text-2xl">
+                {currency} {}
               </p>
             </motion.div>
           </div>

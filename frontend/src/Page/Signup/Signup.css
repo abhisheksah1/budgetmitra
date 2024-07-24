@@ -1,4 +1,4 @@
-/* ./src/components/Signup.css */
+/* 
 .signup-modal {
     display: flex;
     justify-content: center;
@@ -8,8 +8,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    z-index: 1000; /* Ensure modal is on top */
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
   }
   
   .signup-content {
@@ -92,7 +92,7 @@
     cursor: pointer;
   }
   
-  /* Animation classes from animate.css (or use your custom animations) */
+ 
   .animate__animated {
     animation-duration: 1s;
   }
@@ -116,4 +116,4 @@
   .animate__fadeInUp {
     animation-name: fadeInUp;
   }
-  
+   */

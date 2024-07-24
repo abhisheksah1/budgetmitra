@@ -6,10 +6,10 @@ const BasicInvestmentConcepts = () => {
   return (
     <Section title="Basic Investment Concepts">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.6}}
-        viewport={{ once: true }}
+       initial={{ scale:0.8, opacity:0 }}
+       whileInView={{scale:1, opacity:1 }}
+       transition={{ duration: 0.5 }}
+       
       >
         <h3 className="text-xl font-semibold mb-2">1. Risk and Return</h3>
         <p className="text-gray-700 mb-6">

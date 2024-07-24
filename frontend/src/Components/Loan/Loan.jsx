@@ -103,7 +103,7 @@ const LoanComponent = () => {
     }
   };
   return (
-    <main className="p-4 bg-gray-100 min-h-screen">
+    <main className="p-4 bg-gray-100 min-h-screen mt-12">
       <div className="flex justify-between items-center mb-4">
         <motion.section
           className="text-center flex flex-col md:flex-row items-center"
@@ -261,19 +261,22 @@ const LoanComponent = () => {
                   placeholder="Enter interest rate"
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex items-center justify-between">
                 <button
                   type="button"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
+                  className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500 focus:outline-none focus:shadow-outline"
                   onClick={handleCancel}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={`bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={loading}
                 >
-                  {loading ? "Adding..." : "Add Loan"}
+                  {loading ? "Saving..." : "Save"}
                 </button>
               </div>
             </form>

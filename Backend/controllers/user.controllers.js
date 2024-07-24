@@ -109,7 +109,7 @@ export async function register(req, res) {
               <ol>
                 <li>Login to your account.</li>
                 <li>Click on the "Get Started" option.</li>
-                <li>Follow the steps to enter your information and customize your resume.</li>
+                <li>Follow the steps to show the side bar where you can manage all the finance activities.</li>
               </ol>
               <p>If you have any questions or need assistance, feel free to contact our support team.</p>
               <div class="button-container">

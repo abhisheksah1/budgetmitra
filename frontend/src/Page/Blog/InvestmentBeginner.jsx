@@ -11,46 +11,28 @@ import TaxAdvantagedAccounts from "./TaxAdvantagedAccounts";
 import LearningResources from "./LearningResources";
 import GettingStarted from "./Gettingstarted";
 
-import AnimatedSection from "../AbimatedSection/AnimatedSection";
-
 const Blog = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <AnimatedSection>
-        <TitleSection />
-      </AnimatedSection>
-      <AnimatedSection>
-        <WhyInvest />
-      </AnimatedSection>
-      <AnimatedSection>
-        <BasicInvestmentConcepts />
-      </AnimatedSection>
-      <AnimatedSection>
-        <TypesOfInvestments />
-      </AnimatedSection>
+    <div className="container mx-auto px-4 mt-14 py-8">
+      <TitleSection />
 
-      <AnimatedSection>
-        <GettingStarted />
-      </AnimatedSection>
+      <WhyInvest />
 
-      <AnimatedSection>
-        <AdvancedInvestmentStrategies />
-      </AnimatedSection>
+      <BasicInvestmentConcepts />
 
-      <AnimatedSection>
-        <TaxAdvantagedAccounts />
-      </AnimatedSection>
+      <TypesOfInvestments />
 
-      <AnimatedSection>
-        <CommonMistakesToAvoid />
-      </AnimatedSection>
-      <AnimatedSection>
-        <LearningResources />
-      </AnimatedSection>
+      <GettingStarted />
 
-      <AnimatedSection>
-        <Conclusion />
-      </AnimatedSection>
+      <AdvancedInvestmentStrategies />
+
+      <TaxAdvantagedAccounts />
+
+      <CommonMistakesToAvoid />
+
+      <LearningResources />
+
+      <Conclusion />
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import CurrencyPopup from "../models/currencyPopup.model.js";
-import mongoose from "mongoose";
 
 export async function getCurrencyPopup(req, res) {
   try {
@@ -36,11 +35,15 @@ export async function postCurrencyPopup(req, res) {
 export async function updateCurrencyPopup(req, res) {
   try {
     const { id } = req.params;
-    const currencyPopup = await CurrencyPopup.findByIdAndUpdate(id, {
-      isCurrencyPopup: req.body.isCurrencyPopup || false,
-    }, {
-      new: true,
-    });
+    const currencyPopup = await CurrencyPopup.findByIdAndUpdate(
+      id,
+      {
+        isCurrencyPopup: req.body.isCurrencyPopup || false,
+      },
+      {
+        new: true,
+      }
+    );
 
     if (!currencyPopup) {
       return res.status(404).json({ message: "CurrencyPopup not found" });

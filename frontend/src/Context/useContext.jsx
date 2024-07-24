@@ -15,6 +15,7 @@ const LoginContextProvider = ({ children }) => {
   const [showReset, setShowReset] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [currency, setCurrency] = useState("");
+ 
 
   const handleCurrencyChange = async () => {
     await axios

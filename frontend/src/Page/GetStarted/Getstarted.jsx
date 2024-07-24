@@ -24,12 +24,12 @@ const Getstarted = () => {
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Sidebar */}
       <aside
-      className={`fixed md:static z-0 w-64 bg-blue-800 text-white p-6 transition-transform transform ${
+      className={`fixed mt-16 md:static  z-10  w-64 bg-white shadow-2xl lg:shadow-md text-[#333] p-6 transition-transform transform ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } md:translate-x-0   `} // Added overflow-y-auto to make it scrollable
     >
       <div className="flex justify-between mb-4 md:hidden">
-        <button className="text-white  pl-44" onClick={toggleSidebar}>
+        <button className="text-[#333] pl-44" onClick={toggleSidebar}>
           <X size={24} />
         </button>
       </div>
@@ -37,7 +37,7 @@ const Getstarted = () => {
         <ul>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -52,7 +52,7 @@ const Getstarted = () => {
           </motion.li>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, delay: 0.2 }}
+            whileInView={{ y: 0, opacity: 1, delay: 0.2 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -67,7 +67,7 @@ const Getstarted = () => {
           </motion.li>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, delay: 0.4 }}
+            whileInView={{ y: 0, opacity: 1, delay: 0.4 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -82,7 +82,7 @@ const Getstarted = () => {
           </motion.li>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, delay: 0.6 }}
+            whileInView={{ y: 0, opacity: 1, delay: 0.6 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -97,7 +97,7 @@ const Getstarted = () => {
           </motion.li>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, delay: 0.8 }}
+            whileInView={{ y: 0, opacity: 1, delay: 0.8 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -112,7 +112,7 @@ const Getstarted = () => {
           </motion.li>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, delay: 1 }}
+            whileInView={{ y: 0, opacity: 1, delay: 1 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -127,7 +127,7 @@ const Getstarted = () => {
           </motion.li>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, delay: 1.2 }}
+            whileInView={{ y: 0, opacity: 1, delay: 1.2 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -142,7 +142,7 @@ const Getstarted = () => {
           </motion.li>
           <motion.li
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, delay: 1.4 }}
+            whileInView={{ y: 0, opacity: 1, delay: 1.4 }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -159,8 +159,8 @@ const Getstarted = () => {
       </nav>
     </aside>
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-gray-100">
-        <div className="flex justify-between md:hidden mb-4">
+      <main className="flex-1 p-5 bg-gray-100">
+        <div className="flex justify-end md:hidden mb-4 pt-10">
           <button className="text-blue-800" onClick={toggleSidebar}>
             {isSidebarOpen ? "" : <Menu size={24} />}
           </button>

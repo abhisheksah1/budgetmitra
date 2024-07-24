@@ -15,7 +15,7 @@ function useSignup() {
   }) => {
     setLoading(true); // Set loading state to true
     try {
-      const response = await fetch("http://localhost:8000/api/user/register", {
+      const response = await fetch("/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

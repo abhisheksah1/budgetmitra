@@ -11,7 +11,7 @@ function useSignin() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/user/login", {
+      const response = await fetch("/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ function useSignin() {
         throw new Error(data.message || "Login failed");
       }
     } catch (error) {
-      toast.error("Failed to Subscribe", {
+      toast.error(error.message, {
         position: "bottom-right",
         duration: 3000,
         style: {

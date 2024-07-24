@@ -6,10 +6,10 @@ const Introduction = () => {
   return (
     <Section title="Introduction to Investing">
       <motion.div 
-        initial={{ opacity: 0 }} 
-        whileInView={{ opacity: 1 }} 
-        transition={{ duration: 0.5 }} 
-        viewport={{ once: true }}
+       initial={{ scale:0.8, opacity:0 }}
+       whileInView={{scale:1, opacity:1 }}
+       transition={{ duration: 0.5 }}
+      
         className="space-y-4"
       >
         <p>Investing is a powerful tool for building wealth and achieving financial goals. Understanding the basics of investing can help you make informed decisions and grow your money over time.</p>

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { FaPlus } from "react-icons/fa";
 import { FaCalendarAlt as SlCalender } from "react-icons/fa";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { useLoginContext } from "../../Context/useContext";
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -17,19 +18,13 @@ const Expenses = () => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("7 Days");
-
-  useEffect(() => {
-    fetchExpenses();
-  }, []);
+  const [expensesBalance, setExpensesBalance] = useState(0);
+  const [isAmountVisible, setIsAmountVisible] = useState(true);
+  const { currency } = useLoginContext();
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 100 },
     visible: { opacity: 1, y: 0 },
-  };
-
-  const handleFilterChange = (filter) => {
-    setActiveFilter(filter);
-    // Implement filter logic here if needed
   };
 
   const handleSubmit = async (e) => {
@@ -52,6 +47,7 @@ const Expenses = () => {
       setLoading(false);
       setIsModalOpen(false);
       fetchExpenses();
+      fetch7DaysExpences();
     } catch (error) {
       console.error(
         "Error adding expenses:",
@@ -78,12 +74,68 @@ const Expenses = () => {
       const response = await axios.get(
         `/api/expenses/get?user=${localStorage.getItem("userId")}`
       );
-      setExpenses(response.data.data);
+      const fetchedExpenses = response.data.data;
+      const totalExpenses = fetchedExpenses.reduce(
+        (acc, expense) => acc + Number(expense.amount),
+        0
+      );
+      setExpensesBalance(totalExpenses);
     } catch (error) {
       console.error(
         "Error fetching expenses:",
         error.response ? error.response.data : error.message
       );
+    }
+  };
+
+  const fetch7DaysExpences = async () => {
+    try {
+      const response = await axios.get(
+        `/api/expenses/getSevenDays?user=${localStorage.getItem("userId")}`
+      );
+      const fetchedExpenses = response.data.data;
+      setExpenses(fetchedExpenses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const fetch15DaysExpences = async () => {
+    try {
+      const response = await axios.get(
+        `/api/expenses/getFifteenDays?user=${localStorage.getItem("userId")}`
+      );
+      const fetchedExpenses = response.data.data;
+      setExpenses(fetchedExpenses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const fetch1MonthExpences = async () => {
+    try {
+      const response = await axios.get(
+        `/api/expenses/getOneMonth?user=${localStorage.getItem("userId")}`
+      );
+      const fetchedExpenses = response.data.data;
+      setExpenses(fetchedExpenses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchExpenses();
+    fetch7DaysExpences();
+  }, []);
+
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter);
+    // Implement filter logic here if needed
+    if (filter === "15 Days") {
+      fetch15DaysExpences();
+    } else if (filter === "30 Days") {
+      fetch1MonthExpences();
+    } else if (filter === "7 Days") {
+      fetch7DaysExpences();
     }
   };
 
@@ -93,7 +145,7 @@ const Expenses = () => {
   };
 
   return (
-    <main className="p-4 bg-gray-100 min-h-screen">
+    <main className="p-4 bg-gray-100 min-h-screen mt-12">
       <div className="flex justify-between items-center mb-4">
         <motion.section
           className="text-center flex flex-col md:flex-row items-center"
@@ -127,6 +179,32 @@ const Expenses = () => {
           />
         </motion.section>
       </div>
+
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={sectionVariants}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="flex justify-between items-center mb-4"
+      >
+        <div className="p-4 flex items-center gap-3 rounded-lg shadow-md w-full md:w-auto">
+          <div className="text-2xl text-blue-500">
+            <i className="fa fa-credit-card" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p
+              className="text-left cursor-pointer"
+              onClick={() => setIsAmountVisible(!isAmountVisible)}
+            >
+              <span className="text-xl">{currency} </span>
+              <span className="text-xl">
+                {isAmountVisible ? expensesBalance.toFixed(2) : "XXX.XX"}
+              </span>
+            </p>
+            <h2 className="text-sm text-wrap text-left">Total Expenses</h2>
+          </div>
+        </div>
+      </motion.div>
 
       <motion.section
         className="text-center flex-col mb-4 md:flex-row items-center"
@@ -165,86 +243,86 @@ const Expenses = () => {
             <h2 className="text-2xl font-bold mb-4">Add New Expense</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label
-                  htmlFor="category"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Expense Type
+                <label className="form-control w-full max-w-lg  ">
+                  <div className="label">
+                    <span className="label-text">Expense Type</span>
+                  </div>
+                  <select
+                    className="select select-bordered"
+                    id="category"
+                    name="category"
+                    value={expenseCategory}
+                    onChange={(e) => setExpenseCategory(e.target.value)}
+                  >
+                    <option value="" aria-readonly="true">
+                      Select an expense type
+                    </option>
+                    <option value="Variable Expenses">Variable Expenses</option>
+                    <option value="Fixed Expenses">Fixed Expenses</option>
+                    <option value="Utility Expenses">Utility Expenses</option>
+                  </select>
                 </label>
-                <select
-                  id="category"
-                  name="category"
-                  value={expenseCategory}
-                  onChange={(e) => setExpenseCategory(e.target.value)}
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="">Select an expense type</option>
-                  <option value="Variable Expenses">Variable Expenses</option>
-                  <option value="Fixed Expenses">Fixed Expenses</option>
-                  <option value="Utility Expenses">Utility Expenses</option>
-                </select>
               </div>
               <div className="mb-4">
-                <label
-                  htmlFor="reason"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label className="flex text-md  items-center gap-2 border border-gray-300 hover:border-blue-500  rounded-md p-2">
                   Expense Reason
+                  <input
+                    type="text"
+                    id="reason"
+                    name="reason"
+                    value={expensesReason}
+                    onChange={(e) => setExpensesReason(e.target.value)}
+                    className="flex-grow p-2 border border-transparent bg-transparent rounded-md focus:outline-none"
+                    placeholder="Enter expense reason"
+                  />
                 </label>
-                <input
-                  type="text"
-                  id="reason"
-                  name="reason"
-                  value={expensesReason}
-                  onChange={(e) => setExpensesReason(e.target.value)}
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  placeholder="Enter expense reason"
-                />
               </div>
               <div className="mb-4">
-                <label
-                  htmlFor="amount"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label className="flex text-md  items-center gap-2 border border-gray-300 hover:border-blue-500  rounded-md p-2">
                   Expense Amount
+                  <input
+                    type="number"
+                    id="amount"
+                    name="amount"
+                    value={expenseAmount}
+                    onChange={(e) => setExpenseAmount(e.target.value)}
+                    className="flex-grow p-2 border border-transparent bg-transparent rounded-md focus:outline-none"
+                    placeholder="Enter expense amount"
+                  />
                 </label>
-                <input
-                  type="number"
-                  id="amount"
-                  name="amount"
-                  value={expenseAmount}
-                  onChange={(e) => setExpenseAmount(e.target.value)}
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  placeholder="Enter expense amount"
-                />
               </div>
               <div className="mb-4">
                 <label
                   htmlFor="date"
-                  className="block text-sm font-medium text-gray-700"
+                  className="flex text-md  items-center gap-2 border border-gray-300 hover:border-blue-500  rounded-md p-2"
                 >
                   Expense Date
+                  <DatePicker
+                    id="date"
+                    selected={expenseDate}
+                    onChange={(date) => setExpenseDate(date)}
+                    dateFormat="yyyy-MM-dd"
+                    className="flex-grow p-2 border border-transparent bg-transparent rounded-md focus:outline-none"
+                    readOnly
+                  />
                 </label>
-                <DatePicker
-                  id="date"
-                  selected={expenseDate}
-                  onChange={(date) => setExpenseDate(date)}
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
               </div>
-              <div className="flex justify-end">
+              <div className="flex items-center justify-between">
                 <button
                   type="button"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
+                  className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500 focus:outline-none focus:shadow-outline"
                   onClick={handleCancel}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={`bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={loading}
                 >
-                  {loading ? "Adding..." : "Add Expense"}
+                  {loading ? "Saving..." : "Save"}
                 </button>
               </div>
             </form>
@@ -264,7 +342,6 @@ const Expenses = () => {
             <p className="text-center text-gray-600">No expenses to show.</p>
           ) : (
             <table className="min-w-full divide-y divide-gray-200">
-              
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
