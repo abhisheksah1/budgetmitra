@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "name": "budgetmitra",
+    "builds": [
+       { "src": "*.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+       { "src": "/(.*)", "dest": "/Backend/server.js" }
+    ]
+ }
