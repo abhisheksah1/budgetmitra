@@ -10,7 +10,7 @@ function useSubscribe() {
     setLoading(true); // Set loading state to true
 
     try {
-      const response = await fetch("http://localhost:8000/api/subscribe/post", {
+      const response = await fetch("/api/subscribe/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
