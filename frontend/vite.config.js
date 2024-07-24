@@ -9,7 +9,7 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'https://budgetmitra-api.vercel.app/',
+        target: 'https://budgetmitra.vercel.app/',
       }
     }
   }
