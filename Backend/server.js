@@ -42,10 +42,10 @@ app.use(
   })
 );
 
-// Register user routes
-// app.get("/", (req, res) => {
-//   res.send("Hello from the server!"); // Replace with your own server response
-// });
+Register user routes
+app.get("/", (req, res) => {
+  res.send("Hello from the server!"); // Replace with your own server response
+});
 app.use("/api/user", registerRoutes);
 app.use("/api/income", incomeRoutes);
 app.use("/api/expenses", expensesRoutes);
