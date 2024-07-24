@@ -19,7 +19,7 @@ import taskRoutes from "./routes/task.routes.js";
 import feedbackRoutes from "./routes/feedback.route.js";
 
 const app = express(); // Create an Express application
-const PORT = process.env.PORT || 8000; // Set the port from environment variables or default to 5000
+const PORT = process.env.PORT || 5000; // Set the port from environment variables or default to 5000
 
 databaseConnection(); // Connect to the database
 
@@ -32,15 +32,20 @@ app.use(bodyParser.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-const __dirnames = path.resolve();
+// const __dirnames = path.resolve();
 
 // Middleware to enable CORS
-app.use(cors({
-  origin: 'http://localhost:8000',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:8000",
+    credentials: true,
+  })
+);
 
 // Register user routes
+app.get("/", (req, res) => {
+  res.send("Hello from the server!"); // Replace with your own server response
+});
 app.use("/api/user", registerRoutes);
 app.use("/api/income", incomeRoutes);
 app.use("/api/expenses", expensesRoutes);
@@ -50,10 +55,10 @@ app.use("/api/currencyPopup", currencyPopupRoutes);
 app.use("/api/task", taskRoutes);
 app.use("/api/feedback", feedbackRoutes); // This is the correct path
 
-app.use(express.static(path.join(__dirnames, "/frontend/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
+// app.use(express.static(path.join(__dirnames, "/frontend/dist")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// });
 
 // Start the server and listen on the specified port
 app.listen(PORT, () => {
