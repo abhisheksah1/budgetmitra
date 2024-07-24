@@ -37,7 +37,7 @@ const FeedbackSection = () => {
                   <div className="flex items-center mb-4">
                     <img
                       className="w-12 h-12 rounded-full mr-4"
-                      src={`http://localhost:8000${feedback.photo}`}
+                      src={`http://localhost:5000${feedback.photo}`}
                       alt={feedback.name}
                     />
                     <div>

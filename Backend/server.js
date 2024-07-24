@@ -32,20 +32,20 @@ app.use(bodyParser.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-// const __dirnames = path.resolve();
+const __dirnames = path.resolve();
 
 // Middleware to enable CORS
 app.use(
   cors({
-    origin: "http://localhost:8000",
+    origin: "http://localhost:5000",
     credentials: true,
   })
 );
 
 // Register user routes
-app.get("/", (req, res) => {
-  res.send("Hello from the server!"); // Replace with your own server response
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello from the server!"); // Replace with your own server response
+// });
 app.use("/api/user", registerRoutes);
 app.use("/api/income", incomeRoutes);
 app.use("/api/expenses", expensesRoutes);
@@ -55,10 +55,10 @@ app.use("/api/currencyPopup", currencyPopupRoutes);
 app.use("/api/task", taskRoutes);
 app.use("/api/feedback", feedbackRoutes); // This is the correct path
 
-// app.use(express.static(path.join(__dirnames, "/frontend/dist")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-// });
+app.use(express.static(path.join(__dirnames, "/frontend/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirnames, "frontend", "dist", "index.html"));
+});
 
 // Start the server and listen on the specified port
 app.listen(PORT, () => {
