@@ -9,7 +9,7 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'https://budgetmitra.onrender.com',
+        target: 'http://localhost:8000',
       }
     }
   }
