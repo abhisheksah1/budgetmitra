@@ -37,7 +37,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Middleware to enable CORS
 app.use(
   cors({
-    origin: "http://localhost:8000",
+    origin: "https://budgetmitra-api.vercel.app/",
     credentials: true,
   })
 );
