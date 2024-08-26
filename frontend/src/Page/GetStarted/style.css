@@ -1,0 +1,70 @@
+/* In Getstarted.css */
+.link-default {
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .link-active {
+    border: 1px solid rgb(133, 133, 208);
+    background: linear-gradient(to right, rgb(219, 234, 254) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    color:rgb(59, 130, 246);
+    animation: slideBg 0.5s forwards;
+  }
+  
+  @keyframes slideBg {
+    to {
+      background-position: 0 0;
+    }
+  }
+  
+
+  /* Add this to your existing style.css */
+
+aside {
+    transition: width 0.5s ease, transform 0.5s ease;
+  }
+  
+
+
+
+  .tooltip-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Tooltip text */
+  .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(155, 165, 179);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 10%; /* Position above the link */
+    left: 50%;
+    margin-left: 60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  /* Show the tooltip text when hovering */
+  .tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  
+
+  .main-blur {
+    filter: blur(1px);
+    pointer-events: none;
+  }
+
+
+  
